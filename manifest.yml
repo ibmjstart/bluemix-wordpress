@@ -1,0 +1,20 @@
+---
+declared-services:
+  someObjectDB:
+    type: objectstorage
+    plan: free
+  myCloudant:
+    label: cloudantNoSQLDB
+    plan: Shared
+  mySendGrid:
+    label: sendgrid
+    plan: free
+
+applications:
+- name: WordPressForBluemix
+  memory: 256M #The maximum memory to allocate to each application instance
+  instances: 1 #The number of instances of the application to start
+  services:
+  - someObjectDB
+  - myCloudant
+  - mySendGrid
