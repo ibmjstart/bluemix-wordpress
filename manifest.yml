@@ -1,6 +1,6 @@
 ---
 declared-services:
-  someObjectDB:
+  myObjectStorage:
     type: objectstorage
     plan: free
   myCloudant:
@@ -16,6 +16,6 @@ applications:
   instances: 1 #The number of instances of the application to start
   buildpack: https://github.com/cloudfoundry/php-buildpack#v3.0.3
   services:
-  - someObjectDB
+  - myObjectStorage
   - myCloudant
   - mySendGrid
