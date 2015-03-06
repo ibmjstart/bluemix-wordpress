@@ -3,9 +3,9 @@ declared-services:
   myObjectStorage:
     type: objectstorage
     plan: free
-  myCloudant:
-    label: cloudantNoSQLDB
-    plan: Shared
+  myClearDB:
+    label: cleardb
+    plan: spark
   mySendGrid:
     label: sendgrid
     plan: free
@@ -17,5 +17,5 @@ applications:
   buildpack: https://github.com/cloudfoundry/php-buildpack#v3.0.3
   services:
   - myObjectStorage
-  - myCloudant
+  - myClearDB
   - mySendGrid
