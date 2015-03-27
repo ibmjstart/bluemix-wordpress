@@ -1,18 +1,6 @@
 {
     "repositories": [
         {
-          "type": "composer",
-          "url": "https://packages.zendframework.com/"
-        },
-        {
-          "type": "composer",
-          "url": "http://wpackagist.org"
-        },
-        {
-          "type": "vcs",
-          "url": "git@github.com:ibmjstart/ZendService_IBMObjectStorage.git"
-        },
-        {
           "type": "vcs",
           "url": "git@github.com:ibmjstart/wp-bluemix-sendgrid.git"
         },
@@ -23,6 +11,14 @@
         {
           "type": "vcs",
           "url": "git@github.com:ibmjstart/wp-bluemix-config.git"
+        },
+        {
+          "type": "composer",
+          "url": "https://packages.zendframework.com/"
+        },
+        {
+          "type": "composer",
+          "url": "http://wpackagist.org"
         }
     ],
     
@@ -47,7 +43,7 @@
         "ibmjstart/wp-bluemix-config"                 : "dev-master",
         "wpackagist-plugin/stops-core-theme-and-plugin-updates": "*",
         "wpackagist-plugin/sendgrid-email-delivery-simplified": "*",
-        "wpackagist-plugin/w3-total-cache"            : "*",
+        "wpackagist-plugin/wp-super-cache"            : "*",
         "wpackagist-theme/twentyfourteen"             : "*",
         "wpackagist-theme/twentythirteen"             : "*",
         "wpackagist-theme/twentytwelve"               : "*"
