@@ -1,6 +1,14 @@
 {
     "repositories": [
         {
+          "type": "composer",
+          "url": "https://packages.zendframework.com/"
+        },
+        {
+          "type": "composer",
+          "url": "http://wpackagist.org"
+        },
+        {
           "type": "vcs",
           "url": "git@github.com:ibmjstart/wp-bluemix-sendgrid.git"
         },
@@ -11,14 +19,6 @@
         {
           "type": "vcs",
           "url": "git@github.com:ibmjstart/wp-bluemix-config.git"
-        },
-        {
-          "type": "composer",
-          "url": "https://packages.zendframework.com/"
-        },
-        {
-          "type": "composer",
-          "url": "http://wpackagist.org"
         }
     ],
     
