@@ -1,0 +1,21 @@
+---
+declared-services:
+  myObjectStorage:
+    type: objectstorage
+    plan: free
+  myClearDB:
+    label: cleardb
+    plan: spark
+  mySendGrid:
+    label: sendgrid
+    plan: free
+
+applications:
+- name: WordPressForBluemix
+  memory: 256M #The maximum memory to allocate to each application instance
+  instances: 1 #The number of instances of the application to start
+  buildpack: https://github.com/cloudfoundry/php-buildpack#v3.1.0
+  services:
+  - myObjectStorage
+  - myClearDB
+  - mySendGrid
