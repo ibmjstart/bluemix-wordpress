@@ -8,11 +8,12 @@ ___
 
 ##Deploy This Yourself##
 
-
-1. Go to bluemix.net and and create an object storage instance with the name: "myObjectStorage"
-
-Hit the button below to give it a shot. (note: you will need to manually bind Object Storage)
-
+Hit the button below to give it a shot. 
 
 [![Deploy to Bluemix](images/deploy-button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/jstart/WordPress.on.Bluemix)
+
+(Note: only one instance of the SendGrid service is allowed per space. If the deployment fails, that's probably why.)
+
+
+
 
