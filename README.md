@@ -10,7 +10,7 @@ ___
 
 Hit the button below to give it a shot. 
 
-[![Deploy to Bluemix](images/deploy-button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/jstart/WordPress.on.Bluemix)
+[![Deploy to Bluemix](https://hub.jazz.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/jstart/WordPress.on.Bluemix)
 
 (Note: only one instance of the SendGrid service is allowed per space. If the deployment fails, that's probably why.)
 
