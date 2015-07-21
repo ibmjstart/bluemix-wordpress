@@ -17,22 +17,24 @@ Hit the button below to give it a shot.
 
 Please note that this code is for developer education purposes only.   It is not intended to be used in a production environment. 
 
+---
 #Docs:
 
 # About the App
 This WordPress deploy includes everything you need to get up and running on Bluemix within minutes. IBM® Object Storage manages your media files and Sendgrid provides email integration. If you would like to further extend your WordPress site, you can download the application package and work with the code directly.
 Finally, your database is provided by ClearDB, a MySQL database service provider.
-# Usage
 
-Docs 
-1.  Create a WordPress on Bluemix application:
-    1.  On the Bluemix dashboard, select CREATE AN APP and select the WordPress on Bluemix Starter.
-    2.  Provide your application name and host name.
-    3.  Select the service plans you want (default: free tier for all services).
-    4.  Click CREATE.
-2.  Go to your application:
-    1.  After your application starts, go to it at http://.mybluemix.net.
-    2.  Follow the steps to configure your WordPress website for the first time.
+ 
+###  Create a WordPress on Bluemix application:
+1.  On the Bluemix dashboard, select CREATE AN APP and select the WordPress on Bluemix Starter.
+2.  Provide your application name and host name.
+3.  Select the service plans you want (default: free tier for all services).
+4.  Click CREATE.  
+
+### Go to your application:
+1.  After your application starts, go to it at http://.mybluemix.net.
+2.  Follow the steps to configure your WordPress website for the first time.
+
 ## Configure Sendgrid
 The Sendgrid plugin is enabled by default in WordPress on Bluemix.
 To configure Sendgrid, go to your admin dashboard, and then select Settings and then select Sendgrid. Your credentials are automatically completed by Bluemix, but you are free to change them (keep in mind that this action might break Sendgrid integration). Under mail settings, complete your settings according to the four options.
@@ -40,6 +42,7 @@ To configure Sendgrid, go to your admin dashboard, and then select Settings and 
 2.  Sending Address: The address that the email appears to originate from.
 3.  Reply Address: The email that replies are sent to. Choose a working, existing email that you use.
 4.  Categories: Any categories that you want to attach to your messages.
+
 # Customizing WordPress
 The Bluemix WordPress boilerplate uses the [Composer package manager](https://getcomposer.org/ "(Opens in a new tab or window)") to install the latest version of WordPress. Bluemix, like other cloud platforms, has an ephemeral filesystem. Every time your application is restaged, the container that stores the files is destroyed and recreated from the application package. Therefore, the Bluemix WordPress boilerplate disables upgrades that are already in place and warns against web-based plugin and theme installation. Instead, to edit your installation, simply download the starter code, modify the composer.json file, and re-push to Bluemix.
 1.  Access your application and download the starter package.
@@ -54,6 +57,7 @@ The Bluemix WordPress boilerplate uses the [Composer package manager](https://ge
 4.  Your app is now available at http://.mybluemix.net.
 5.  Everytime the app is restaged, there is a possibility that the WordPress core has been updated. This depends on how the WordPress version is set in the composer.json file. The default is to get the latest version.
     1.  After WorPress core receives an update, you may need to apply changes to the database. WordPress is able to detect this and prompts the user to run a database update. The prompt appears in the admin console after log in. If the login page does not appear, it can be found at .mybluemix.net/wp-login.php.
+
 # FAQ
 ## What is IBM Object Storage and what is it being used for?
 IBM Object Storage is a service that uses SoftLayer Object Storage, which is SoftLayer's implementation of OpenStack Swift.
@@ -67,6 +71,7 @@ Object Storage uses containers to create a pseudo-filesystem on your object stor
 *   Sendgrid: Sendgrid provides email integration with your website. Activate the Sendgrid Bluemix plugin to automatically use Bluemix credentials to use Sendgrid, or provide your own.
 *   Object Storage: Handle all media storage and uploads for your WordPress site.
 *   WP Super Cache: A popular WordPress optimization plugin that uses caching to speed up your blog.
+
 ## WP Super Cache Plugin
 1.  Navigate to the plugins page in the admin dashboard.
 2.  Find the WP Super Cache plugin in the list.
@@ -75,6 +80,7 @@ Object Storage uses containers to create a pseudo-filesystem on your object stor
 5.  If you are directed to a page that says, "Permalink Structure Error", a custom URL or permalink structure is required for the plugin to work correctly. Go to the Permalinks Options Page to configure the permalinks. Click the Permalinks Options Page link and choose a new permalink structure. Hit Save Changes. A common choice here is month and name.
 6.  Navigate to the WP Super Cache settings under the Settings Tab. Turn caching on. Hit Update Status.
 You are now using caching.
+
 ## My WordPress site received an "Error establishing a database connection" message.
 You probably have too many concurrent users who are trying to access your website. By default, WordPress on Bluemix uses the free tier of ClearDB's MySQL database as a service that is suitable for trial usage. However, for real usage, consider upgrading to one of their paid tiers, which provide you with more simultaneous connections and more storage space. Unfortunately, paid tiers for ClearDB are not offered in Bluemix currently. Contact ClearDB support for options on upgrading your plan. You can also try activating the [WP Super Cache Plugin](https://www.ng.bluemix.net/docs/starters/wordpress/index.html#faq__WPSuperCache) to improve performance.
 ## My site is loading slowly. Can I speed it up?
@@ -95,6 +101,7 @@ The boilerplate uses the PHP dependency manager Composer to dynamically install 
 *   After you add plugins and themes, run composer update in a terminal that is in the same directory as your composer.json file. This action generates the composer.lock file that the buildpack uses to install everything, and also downloads the files that are specified in composer. Because they are downloaded again when you push, you should either add these folders to your .cfignore file, or delete them before you push.
 *   Do a cf push. When the app is pushed, the buildpack uses the composer.lock file to download all of the files you've specified. They are then available to you in WordPress.
 *   If you want to lock version numbers instead of always getting the latest, you can specify all version numbers in the composer.json file. Otherwise, you can install composer and run composer locally to generate a composer.lock file before pushing.
+
 ## Object Storage HTTP Error: A field name was provided without a field value
 When a WordPress instance is started for the first time, the boilerplate creates an Object Storage subaccount for the application to use. This process can take anywhere from 30 seconds to 10 minutes. This is the error that you see when it is not completed before you go to the Object Storage settings of your site. Try again in a minute and it might be working properly. If you are seeing this error and it is not the first time you've started the boilerplate, it might mean that the IBM Object Storage service is down.
 ## Can I upload files larger than 500 MB?
