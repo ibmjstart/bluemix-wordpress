@@ -102,6 +102,28 @@ The boilerplate uses the PHP dependency manager Composer to dynamically install 
 *   Do a cf push. When the app is pushed, the buildpack uses the composer.lock file to download all of the files you've specified. They are then available to you in WordPress.
 *   If you want to lock version numbers instead of always getting the latest, you can specify all version numbers in the composer.json file. Otherwise, you can install composer and run composer locally to generate a composer.lock file before pushing.
 
+## Incorporating Private Plugins with Composer
+Private and premium Wordpress plugins can be challenging to incorporate in this code repository.  Unlike public themes and plugins which can be obtained via wpackagist or another publically accessible git repository, private plugins usually need to be present as a local asset.  To leverage private plugins, you will need to do the following 3 steps:
+1. Download and extract your Private Wordpress Plugin into a folder or subfolder within the root of this repository.  I typically create a **private** folder and then extract the private plugin folders within it.
+2. Next add a composer.json file to the root of your plugin folder with something similar to the following:
+
+   ```
+{
+  	"name": "thethemefoundry/make-plus",
+  	"type": "wordpress-plugin",
+  	"keywords": ["wordpress", "plugin"],
+  	"license": "This software is NOT to be distributed, but can be INCLUDED in WP themes: Premium or Contracted.",
+  	"require": {
+    	"php": ">=5.3.2",
+    	"composer/installers": "v1.0.7"
+  	}
+} ```
+3. Finally, we need to tell composer where to place this privately sourced plugin folder.  Modify this projects composer.json within the post-install-cmd array to include a command for **moving** your private plugin content to the wp-content plugins folder.  The command will look similar to this:
+
+   ```"mv private/my-personal-plugin htdocs/wp-content/plugins"```    
+
+## Routes to my posts and pages start failing unexpectedly
+The .htaccess is a distributed config file.  Wordpress uses this file to manipulate how Apache serves files from its root directory and subdirectories thereof.  Most notably, WP modifies this file to be able to handle pretty permalinks. An example of a default version can be found [here](https://codex.wordpress.org/htaccess) . If your routes unexpectedly stop working until you reset your permalinks settings within the Admin dashboard, then you are most likely dealing with a .htaccess file that is either corrupt or being deleted after app restart.  Use the **cf files** or the Bluemix dashboard to inspect the .htaccess file which should be present at */app/htdocs/.htaccess*.  Visit the private folder of this repository and update the .htaccess default file provided in this repo.  
 ## Object Storage HTTP Error: A field name was provided without a field value
 When a WordPress instance is started for the first time, the boilerplate creates an Object Storage subaccount for the application to use. This process can take anywhere from 30 seconds to 10 minutes. This is the error that you see when it is not completed before you go to the Object Storage settings of your site. Try again in a minute and it might be working properly. If you are seeing this error and it is not the first time you've started the boilerplate, it might mean that the IBM Object Storage service is down.
 ## Can I upload files larger than 500 MB?

@@ -30,7 +30,8 @@
             "mv vendor/ibmjstart/wp-bluemix-config/mu-plugins htdocs/wp-content/mu-plugins",
             "mv vendor/ibmjstart/wp-bluemix-config/.user.ini htdocs",
             "mv vendor/ibmjstart/wp-bluemix-config/wp-config.php htdocs",
-            "mv vendor htdocs/vendor"
+            "mv vendor htdocs/vendor",
+            "mv private/.htaccess htdocs"
         ]
         
     },
