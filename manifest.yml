@@ -1,7 +1,7 @@
 ---
 declared-services:
   myObjectStorage:
-    type: objectstorage
+    label: objectstorage
     plan: free
   myClearDB:
     label: cleardb
