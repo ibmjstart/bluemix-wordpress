@@ -1,9 +1,16 @@
 WordPress on Bluemix
 ================================================================================
 
-WordPress is an open source content management system (CMS) that is popular with both businesses and bloggers.
+WordPress is an open source content management system (CMS) that is popular with 
+both businesses and bloggers. WordPress is extendable and customizable through 
+themes, plugins, and templates that make it easy to transform the site to meet 
+your exact needs.
 
-WordPress is extendable and customizable through themes, plugins, and templates that make it easy to transform the site to meet your exact needs. This boilerplate lets you quickly get your own WordPress website up and running on Bluemix™. When you go to the Bluemix catalog and deploy the boilerplate, you have the default WordPress application that you get from their website, along with services like IBM Object Storage and Sendgrid to help get you started.
+This boilerplate lets you quickly get your own WordPress website up and running 
+on IBM Bluemix™. It uses the PHP buildpack and [composer](https://getcomposer.org) to install the 
+[wordpress package from johnpbloch](https://packagist.org/packages/johnpbloch/wordpress) 
+and configures the installation to use ClearDB (MySQL) for data, IBM Object Storage 
+for media, and Sendgrid for email.
 
 ___
 
