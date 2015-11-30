@@ -19,6 +19,9 @@ target space already has one, please either
 * Fork this project and, in manifest.yml under services, change all instances of 
 "mySendGrid" to match the name of your service instance.
 
+Note: If you have previously created a wordpress on bluemix instance and it is now not pulling your images to your posts correctly, please follow [these](http://blog.ibmjstart.net/2015/11/30/migrating-wordpress-on-bluemix/) 
+instructions to migrate your wordpress from using IBM Object Storage version 1 to version 3.
+
 ---
 # Configure Your Site
 1.  After your application starts, go to it at http://&lt;your-hostname&gt;.mybluemix.net.
