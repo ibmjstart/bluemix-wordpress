@@ -62,13 +62,16 @@ the application to Bluemix.
     *  For more info on the Cloud Foundry command-line interface, see 
 [Start coding with Cloud Foundry command line interface](https://www.ng.bluemix.net/docs/starters/install_cli.html)
 
-Note: The default composer config from this repository will install the latest 
+--Note: The default composer config from this repository will install the latest 
 WordPress package each time the application is staged. If you would like to avoid 
 unexpected upgrades, please change the following line in composer.json 
-in order to lock into a specific version or version range:
+in order to lock into a specific version or version range:--
+Note: The default composer config from this repository will install version 4.3.* 
+of WordPress. If you would like to use any other verions, please change the 
+following line in composer.json:
 
 ```
-"johnpbloch/wordpress"                        : "*",
+"johnpbloch/wordpress"                        : "4.3.*",
 ```
 
 After each update to WordPress core, you may need to apply the changes to the database. 
