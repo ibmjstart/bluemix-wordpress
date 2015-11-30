@@ -14,11 +14,11 @@
         },
         {
           "type": "composer",
-          "url": "https://packages.zendframework.com/"
+          "url": "http://wpackagist.org"
         },
         {
-          "type": "composer",
-          "url": "http://wpackagist.org"
+          "type": "vcs",
+          "url": "https://github.com/php-opencloud/openstack.git"
         }
     ],
     
@@ -38,7 +38,7 @@
 
     "require": {
         "ext-gd"                                      : "*",
-        "johnpbloch/wordpress"                        : "*",
+        "johnpbloch/wordpress"                        : "4.3.*",
         "ibmjstart/wp-bluemix-sendgrid"               : "dev-master",
         "ibmjstart/wp-bluemix-objectstorage"          : "dev-master",
         "ibmjstart/wp-bluemix-config"                 : "dev-master",
