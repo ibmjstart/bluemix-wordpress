@@ -38,7 +38,7 @@
 
     "require": {
         "ext-gd"                                      : "*",
-        "johnpbloch/wordpress"                        : "4.3.*",
+        "johnpbloch/wordpress"                        : "*",
         "ibmjstart/wp-bluemix-sendgrid"               : "dev-master",
         "ibmjstart/wp-bluemix-objectstorage"          : "dev-master",
         "ibmjstart/wp-bluemix-config"                 : "dev-master",
