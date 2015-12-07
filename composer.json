@@ -40,7 +40,7 @@
         "ext-gd"                                      : "*",
         "johnpbloch/wordpress"                        : "*",
         "ibmjstart/wp-bluemix-sendgrid"               : "dev-master",
-        "ibmjstart/wp-bluemix-objectstorage"          : "dev-master",
+        "ibmjstart/wp-bluemix-objectstorage"          : "*",
         "ibmjstart/wp-bluemix-config"                 : "dev-master",
         "wpackagist-plugin/stops-core-theme-and-plugin-updates": "*",
         "wpackagist-plugin/sendgrid-email-delivery-simplified": "*",
