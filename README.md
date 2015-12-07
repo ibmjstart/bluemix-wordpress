@@ -13,14 +13,18 @@ for media, and SendGrid for email.
 
 [![Deploy to Bluemix](https://hub.jazz.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/jstart/WordPress.on.Bluemix)
 
-Note: Only one instance of the SendGrid service is allowed per space. If your 
+Things to note:  
+1. Only one instance of the SendGrid service is allowed per space. If your 
 target space already has one, please either
-* Rename your SendGrid instance to "mySendGrid" before deploying; or
-* Fork this project and, in manifest.yml under services, change all instances of 
-"mySendGrid" to match the name of your service instance.
+  * Rename your SendGrid instance to "mySendGrid" before deploying; or
+  * Fork this project and, in manifest.yml under services, change all instances of 
+    "mySendGrid" to match the name of your service instance.
+2. Only one instance of the Object Storage service, using the Free plan, is allowed per organization. If your target org already has one, please either
+  * Rename your Object Storage instance to "myObjectStorage" before deploying; or
+  * Fork this project and, in manifest.yml under services, change all instances of "myObjectStoage" to match the name of your service instance.
+3. If you have previously created a WordPress on Bluemix instance and it is now not pulling your images to your posts correctly, please follow [these](http://blog.ibmjstart.net/2015/11/30/migrating-wordpress-on-bluemix/) 
+instructions to migrate your WordPress from using IBM Object Storage v1 to The new Object Storage Beta.
 
-Note: If you have previously created a wordpress on bluemix instance and it is now not pulling your images to your posts correctly, please follow [these](http://blog.ibmjstart.net/2015/11/30/migrating-wordpress-on-bluemix/) 
-instructions to migrate your wordpress from using IBM Object Storage version 1 to version 3.
 
 ---
 # Configure Your Site
