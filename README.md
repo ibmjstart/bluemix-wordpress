@@ -79,6 +79,11 @@ WordPress should detect this and prompt you to run the database update from the
 WordPress dashboard (https://<your-site>/wp-login.php).
 
 ---
+
+Contributing to the wp-openstack-objectstorage plugin, look [here](CONTRIBUTING.md) on how
+to make your changes work.
+
+---
 # FAQ
 ## What plugins are installed by default?
 *   Disable Updates Manager: As Bluemix does not use a persistent file system, using the automatic update buttons in the WordPress UI would cause updates and plugins that you install to disappear after your app restarts. The Disable Updates Manager hides the update notifications for WordPress Core, plugins, and themes by default. You are welcome to change this setting, but keep in mind that all updates to your WordPress installation are handled by downloading your code and pushing again with the cf command.
