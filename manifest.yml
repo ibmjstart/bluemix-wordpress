@@ -6,10 +6,6 @@ declared-services:
   myClearDB:
     label: cleardb
     plan: spark
-  mySendGrid:
-    label: sendgrid
-    plan: free
-
 applications:
 - name: WordPressForBluemix
   memory: 256M #The maximum memory to allocate to each application instance
@@ -18,4 +14,3 @@ applications:
   services:
   - myObjectStorage
   - myClearDB
-  - mySendGrid
