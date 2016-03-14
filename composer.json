@@ -41,8 +41,8 @@
         "wpackagist-plugin/sendgrid-email-delivery-simplified": "*",
         "wpackagist-plugin/wp-super-cache"            : "*",
         "wpackagist-theme/twentyfourteen"             : "*",
-        "wpackagist-theme/twentythirteen"             : "*",
-        "wpackagist-theme/twentytwelve"               : "*"
+        "wpackagist-theme/twentyfifteen"             : "*",
+        "wpackagist-theme/twentysixteen"               : "*"
     },
 
     "extra": {
