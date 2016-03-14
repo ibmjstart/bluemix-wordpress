@@ -1,5 +1,5 @@
 {
-  "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mcrypt", "mbstring", "mysqli", "mysql", "gd", "zip"],
-  "PHP_VERSION": "{PHP_56_LATEST}",
+  "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mcrypt", "mbstring", "mysqli", "gd", "zip"],
+  "PHP_VERSION": "{PHP_70_LATEST}",
   "COMPOSER_VENDOR_DIR":"vendor"
 }

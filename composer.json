@@ -2,19 +2,15 @@
     "repositories": [
         {
           "type": "vcs",
-          "url": "git@github.com:ibmjstart/wp-bluemix-sendgrid.git"
+          "url": "https://github.com/ibmjstart/wp-bluemix-objectstorage.git"
         },
         {
           "type": "vcs",
-          "url": "git@github.com:ibmjstart/wp-bluemix-objectstorage.git"
-        },
-        {
-          "type": "vcs",
-          "url": "git@github.com:ibmjstart/wp-bluemix-config.git"
+          "url": "https://github.com/ibmjstart/wp-bluemix-config.git"
         },
         {
           "type": "composer",
-          "url": "http://wpackagist.org"
+          "url": "https://wpackagist.org"
         },
         {
           "type": "vcs",
@@ -39,8 +35,7 @@
     "require": {
         "ext-gd"                                      : "*",
         "johnpbloch/wordpress"                        : "*",
-        "ibmjstart/wp-bluemix-sendgrid"               : "dev-master",
-        "ibmjstart/wp-bluemix-objectstorage"          : "*",
+        "ibmjstart/wp-bluemix-objectstorage"          : "~2.1.1",
         "ibmjstart/wp-bluemix-config"                 : "dev-master",
         "wpackagist-plugin/stops-core-theme-and-plugin-updates": "*",
         "wpackagist-plugin/sendgrid-email-delivery-simplified": "*",
