@@ -20,7 +20,7 @@ Note: Only one instance of the Object Storage Free plan is allowed per organizat
 
 ---
 # Configure Your Site
-1.  After your application starts, go to it at http://&lt;your-hostname&gt;.mybluemix.net.
+1.  After your application starts, open it in a web browser (typically at a URL like http://&lt;your-hostname&gt;[.your-region].mybluemix.net.
 2.  Follow the steps to configure your WordPress website for the first time.
 
 ## Configure SendGrid
@@ -35,7 +35,7 @@ To add email support to your WordPress site:
   * Reply Address: The email that replies are sent to. Choose a working, existing email that you use.
   * Categories: Any categories that you want to attach to your messages.
 
-## <a name="WP_Super_Cache"></a>Activate the WP Super Cache Plugin
+## Activate the WP Super Cache Plugin
 1.  Navigate to the plugins page in the admin dashboard.
 2.  Find the WP Super Cache plugin in the list and click Activate
 3.  A message at the top of the page says, "WP Super Cache is disabled. Please go to the plugin admin page to enable caching." Click on the plugin admin page.
@@ -59,7 +59,7 @@ the application to Bluemix.
 2.  Modify composer.json with the set of plugins and themese you wish to install
 3.  Push your changes to Bluemix using Bluemix DevOps Services or the cf cli
   * For more info on the Cloud Foundry command-line interface, see 
-[Start coding with Cloud Foundry command line interface](https://www.ng.bluemix.net/docs/starters/install_cli.html)
+[Deploying your app with the command line interface](https://www.ng.bluemix.net/docs/starters/install_cli.html)
 
 Note: The default composer config from this repository will install the latest stable 
 WordPress package, each time the application is staged. If you would like to avoid 
@@ -70,7 +70,7 @@ in order to lock into a specific version or version range:
 "johnpbloch/wordpress"                        : "*",
 ```
 
-After each update to WordPress core, you may need to apply the changes to the database. 
+After each update to WordPress core, you may need to apply changes to the database. 
 WordPress should detect this and prompt you to run the database update from the 
 WordPress dashboard (https://<your-site>/wp-login.php).
 
@@ -86,6 +86,8 @@ to make your changes work.
 *   Object Storage: Handles all media uploads for your WordPress site.
 *   SendGrid: SendGrid provides email integration with your website.
 *   WP Super Cache: A popular WordPress optimization plugin that uses caching to speed up your blog.
+
+Note: the SendGrid and WP Super Cache plugins must be manually enabled
 
 ## What is IBM Object Storage?
 IBM Object Storage is a service that exposes OpenStack Swift APIs for storing "objects" like files.
@@ -137,13 +139,23 @@ Private and premium Wordpress plugins can be challenging to incorporate in this 
    ```"mv lib/my-personal-plugin-folder htdocs/wp-content/plugins"```    
 
 ## My WordPress site received an "Error establishing a database connection" message.
-You probably have too many concurrent users who are trying to access your website. By default, WordPress on Bluemix uses the free tier of ClearDB's MySQL database as a service that is suitable for trial usage. However, for real usage, consider upgrading to one of their paid tiers, which provide you with more simultaneous connections and more storage space. Unfortunately, paid tiers for ClearDB are not offered in Bluemix currently. Contact ClearDB support for options on upgrading your plan. You can also try activating the [WP Super Cache Plugin](#WP_Super_Cache).
+You probably have too many concurrent users who are trying to access your website. 
+By default, WordPress on Bluemix uses the free tier of ClearDB's MySQL database as 
+a service that is suitable for trial usage. However, for real usage, consider 
+upgrading to one of their paid tiers that provide you with more simultaneous 
+connections and more storage space.
+
+Unfortunately, paid tiers for ClearDB are not 
+offered in Bluemix currently. Contact ClearDB support for options on upgrading your 
+plan. You can also try [activating the WP Super Cache Plugin](#activate-the-wp-super-cache-plugin).
 
 ## My site is loading slowly. Can I speed it up?
-Bluemix provides built-in support for scaling your apps. If the slowdown is load-related, increasing the number of instances may improve response times. You can also try activating the [WP Super Cache Plugin](#WP_Super_Cache).
+Bluemix provides built-in support for scaling your apps. If the slowdown is load-related, 
+increasing the number of instances may improve response times. You can also try [activating 
+the WP Super Cache Plugin](#activate-the-wp-super-cache-plugin).
 
 ## I received an HTTP error when I tried to upload an image.
-Check the health of the [Object Storage] service in your region via https://ibm.biz/bluemixstatus
+Check the health of the Object Storage service in your region via https://ibm.biz/bluemixstatus
 
 ## Routes to my posts and pages start failing unexpectedly
 The .htaccess is a distributed config file.  Wordpress uses this file to manipulate how Apache serves files from its root directory and subdirectories thereof.  Most notably, WP modifies this file to be able to handle pretty permalinks. An example of a default version can be found [here](https://codex.wordpress.org/htaccess) . If your routes unexpectedly stop working until you reset your permalinks settings within the Admin dashboard, then you are most likely dealing with a .htaccess file that is either corrupt or being deleted after app restart.  Use the **cf files** or the Bluemix dashboard to inspect the .htaccess file which should be present at */app/htdocs/.htaccess*.  Visit the **lib** folder of this repository and update the .htaccess default file provided in this repo.  
@@ -153,5 +165,6 @@ This value, along with several others, is defined in the .user.ini file in the r
 
 ## How do I upgrade this app from a previous version?
 Newer versions of this repository use composer with loose version ranges in order to help keep this project up-to-date (at the cost of some stability). Simply restage your application to pick up the updated dependencies.
+
 If you have installed a previous version of the boilerplate that used Object Storage (v1), please see the following instructions for how to migrate your WordPress from Object Storage v1 to the new Object Storage service on Bluemix: http://blog.ibmjstart.net/2015/11/30/migrating-wordpress-on-bluemix
 
