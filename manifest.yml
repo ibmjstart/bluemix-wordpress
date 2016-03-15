@@ -6,6 +6,7 @@ declared-services:
   myClearDB:
     label: cleardb
     plan: spark
+    
 applications:
 - name: WordPressForBluemix
   memory: 256M #The maximum memory to allocate to each application instance
@@ -13,4 +14,4 @@ applications:
   buildpack: https://github.com/cloudfoundry/php-buildpack
   services:
   - myObjectStorage
-  - myClearDB4
+  - myClearDB
