@@ -11,7 +11,7 @@ applications:
 - name: WordPressForBluemix
   memory: 256M #The maximum memory to allocate to each application instance
   instances: 1 #The number of instances of the application to start
-  buildpack: https://github.com/cloudfoundry/php-buildpack
+  buildpack: https://github.com/cloudfoundry/php-buildpack#v4.3.7
   services:
   - myObjectStorage
   - myClearDB
