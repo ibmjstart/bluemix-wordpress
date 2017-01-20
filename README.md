@@ -37,22 +37,35 @@ If your goal is to achieve a scaleable high-performing Wordpress deployment, con
 ## Configure SendGrid
 The SendGrid plugin is included by default, but must be activated.
 To add email support to your WordPress site:
-1. Create a SendGrid instance from the Bluemix catalog and bind it to your WordPress app
-2. Log in to your WordPress dashboard and enable the SendGrid plugin
-3. Select `Settings > SendGrid` and enter your SendGrid credentials (available via "Show Credentials" in the web UI or `cf env` from the [cf cli](https://github.com/cloudfoundry/cli))
-4. Configure the other email settings:
-  * Name: The name that you want the email to be from.
-  * Sending Address: The address that the email appears to originate from.
-  * Reply Address: The email that replies are sent to. Choose a working, existing email that you use.
-  * Categories: Any categories that you want to attach to your messages.
+
+  1. Create a SendGrid instance from the Bluemix catalog and bind it to your WordPress app
+  2. Log in to your WordPress dashboard and enable the SendGrid plugin
+  3. Select `Settings > SendGrid` and enter your SendGrid credentials (available via "Show Credentials" in the web UI or `cf env` from the [cf cli](https://github.com/cloudfoundry/cli))
+  4. Configure the other email settings:
+    * Name: The name that you want the email to be from.
+    * Sending Address: The address that the email appears to originate from.
+    * Reply Address: The email that replies are sent to. Choose a working, existing email that you use.
+    * Categories: Any categories that you want to attach to your messages.
 
 ## Activate the WP Super Cache Plugin
 1.  Navigate to the plugins page in the admin dashboard.
 2.  Find the WP Super Cache plugin in the list and click Activate
-3.  A message at the top of the page says, "WP Super Cache is disabled. Please go to the plugin admin page to enable caching." Click on the plugin admin page.
-  * If you are directed to a page that says, "Permalink Structure Error", a custom URL or permalink structure is required for the plugin to work correctly. Go to the Permalinks Options Page to configure the permalinks. Click the Permalinks Options Page link and choose a new permalink structure. Hit Save Changes. A common choice here is month and name.
-4.  Navigate to the WP Super Cache settings under the Settings Tab. Turn caching on. Hit Update Status.
-You are now using caching.
+3.  A message at the top of the page says, 
+
+    ```
+"WP Super Cache is disabled. Please go to the plugin admin page to enable caching." 
+Click on the plugin admin page.
+    ```
+
+4. If you are directed to a page that says, "Permalink Structure Error", a custom URL or permalink structure is required for the plugin to work correctly. 
+    * Go to the Permalinks Options Page to configure the permalinks. 
+    * Click the Permalinks Options Page link and choose a new permalink structure. 
+    * Hit Save Changes. A common choice here is month and name.
+
+5. Navigate to the WP Super Cache settings under the Settings Tab. 
+6. Turn caching on. Hit Update Status.
+
+**Congratulations! You are now using caching!**
 
 ## Customize Your WordPress
 WordPress on Bluemix uses the [Composer package manager](https://getcomposer.org) 
