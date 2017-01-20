@@ -11,13 +11,23 @@ WordPress on Bluemix uses the [Composer package manager](https://getcomposer.org
 and configures the installation to use ClearDB (MySQL) for data and IBM Object Storage 
 for media.
 
-[![Deploy to Bluemix](https://hub.jazz.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
+[![Deploy to Bluemix](https://hub.jazz.net/deploy/button_x2.png)](https://bluemix.net/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
 [![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
 
-Note: Only one instance of the Object Storage Free plan is allowed per organization. If your target org already has one, please either
+> ATTENTION: Only one instance of the Object Storage Free plan is allowed per organization. 
+
+If your target org already has a Free Object Storage Service instance, please consider:
+
   * Rename your Object Storage instance to "myObjectStorage" and deploy your application to the same space as this service instance; or
   * Fork this project and, in manifest.yml under services, change all instances of "myObjectStoage" to match the name of your service instance; or
   * Upgrade either your existing Object Storage service or edit manifest.yml to use the `standard` plan
+
+> ATTENTION:  The ClearDB spark plan is resource constrained to a small amount of simultaneous connections.
+
+If your goal is to achieve a scaleable high-performing Wordpress deployment, consider either:
+
+  * Upgrading your ClearDB service instance plan to a paid plan with more available resources (e.g. increased network connections and storage size).
+  * Instantiating an alternative MySQL service via [compose.io](https://compose.io)
 
 ---
 # Configure Your Site
@@ -62,11 +72,11 @@ the application to Bluemix.
   * For more info on the Cloud Foundry command-line interface, see 
 [Deploying your app with the command line interface](https://www.ng.bluemix.net/docs/starters/install_cli.html)
 
-Note: The default composer config from this repository will install the latest stable 
+>The default composer config from this repository will install the latest stable 
 WordPress package, each time the application is staged. If you would like to avoid 
 unexpected upgrades, please change the following line in composer.json 
 in order to lock into a specific version or version range:
-
+>
 ```
 "johnpbloch/wordpress"                        : "*",
 ```
@@ -106,38 +116,49 @@ SendGrid is an easy to use email service that that enables your WordPress websit
 
 ## Using Composer to manage your WordPress application.
 WordPress on Bluemix uses composer, a PHP dependency manager, to dynamically install your plugins and themes. You can manage all plugins, even the WordPress core version, via composer by modifying the composer.json file.
-*   Open the composer.json file. Under the required section, you enter the information for what is being added. There is a specific composer vendor, wpackagist, that mirrors WordPress' SVN repositories for both plugins and themes. This creates a simple way to add more plugins and themes.
-    *   If you want to specify a version of WordPress, you can change the following line: "johnpbloch/wordpress" : "*". The "*" can be replaced with your desired version number. For more information about the version notation, see [package versions](https://getcomposer.org/doc/01-basic-usage.md#package-versions "(Opens in a new tab or window)").
-    *   If you are adding a plugin, the vendor name is wpackagist-plugin. The package name is whatever the plugin developer registered their plugin as. If you want to install a plugin that is called hello-world, then add wpackagist-plugin/hello-world in the require section.
-    *   Adding a theme follows a similar model, but the vendor name is wpackagist-theme
-    *   After that, specify a version number. You can use * to grab the most up-to-date version of a plugin. For themes, use the * in all cases.
+  
+  *   Open the composer.json file. Under the required section, you enter the information for what is being added. There is a specific composer vendor, wpackagist, that mirrors WordPress' SVN repositories for both plugins and themes. This creates a simple way to add more plugins and themes.
+  *   If you want to specify a version of WordPress, you can change the following line: "johnpbloch/wordpress" : "\*". The \* can be replaced with your desired version number. For more information about the version notation, see [package versions](https://getcomposer.org/doc/01-basic-usage.md#package-versions "(Opens in a new tab or window)").
+  *   If you are adding a plugin, the vendor name is wpackagist-plugin. The package name is whatever the plugin developer registered their plugin as. If you want to install a plugin that is called hello-world, then add wpackagist-plugin/hello-world in the require section.
+  *   Adding a theme follows a similar model, but the vendor name is wpackagist-theme
+  *   After that, specify a version number. You can use * to grab the most up-to-date version of a plugin. For themes, use the * in all cases.
     Example:
-    `"wpackagist-plugin/hello-world"			: "*"
-    "wpackagist-theme/twentytwelve			: "*"`
-    For more information on packages and themes, see [WordPress Packagist](http://wpackagist.org/ "(Opens in a new tab or window)").
-*   After you add plugins and themes, run composer update in a terminal that is in the same directory as your composer.json file. This action generates the composer.lock file that the buildpack uses to install everything, and also downloads the files that are specified in composer. Because they are downloaded again when you push, you should either add these folders to your .cfignore file, or delete them before you push.
-*   Do a cf push. When the app is pushed, the buildpack uses the composer.lock file to download all of the files you've specified. They are then available to you in WordPress.
-*   If you want to lock version numbers instead of always getting the latest, you can specify all version numbers in the composer.json file. Otherwise, you can install composer and run composer locally to generate a composer.lock file before pushing.
+    
+    ```
+    "wpackagist-plugin/hello-world": "*"
+    "wpackagist-theme/twentytwelve: "*"
+    ```
+    
+For more information on packages and themes, see [WordPress Packagist](http://wpackagist.org/ "(Opens in a new tab or window)").
+
+  *   After you add plugins and themes, run composer update in a terminal that is in the same directory as your composer.json file. This action generates the composer.lock file that the buildpack uses to install everything, and also downloads the files that are specified in composer. Because they are downloaded again when you push, you should either add these folders to your .cfignore file, or delete them before you push.
+  *   Do a cf push. When the app is pushed, the buildpack uses the composer.lock file to download all of the files you've specified. They are then available to you in WordPress.
+  *   If you want to lock version numbers instead of always getting the latest, you can specify all version numbers in the composer.json file. Otherwise, you can install composer and run composer locally to generate a composer.lock file before pushing.
 
 ## Incorporating Private Plugins with Composer
 Private and premium Wordpress plugins can be challenging to incorporate in this code repository.  Unlike public themes and plugins which can be obtained via wpackagist or another publically accessible git repository, private plugins usually need to be present as a local asset.  To leverage private plugins, you will need to do the following 3 steps:
+
 1. Download and extract your Private Wordpress Plugin(s) into separate subfolder(s) under the parent folder named **lib** which is located at the root of this repository.  The parent folder name must remain as **lib** to ensure that the PHP CloudFoundry buildpack leaves the contents alone.
 2. For each private plugin, add a composer.json file to the root of the folder with something similar to the following:
 
    ```
-{
-  	"name": "thethemefoundry/make-plus",
-  	"type": "wordpress-plugin",
-  	"keywords": ["wordpress", "plugin"],
-  	"license": "This software is NOT to be distributed, but can be INCLUDED in WP themes: Premium or Contracted.",
-  	"require": {
-    	"php": ">=5.3.2",
-    	"composer/installers": "v1.0.7"
-  	}
-} ```
+	{
+	  	"name": "thethemefoundry/make-plus",
+	  	"type": "wordpress-plugin",
+	  	"keywords": ["wordpress", "plugin"],
+	  	"license": "This software is NOT to be distributed, but can be INCLUDED in WP themes: Premium or Contracted.",
+	  	"require": {
+	    	"php": ">=5.3.2",
+	    	"composer/installers": "v1.0.7"
+	  	}
+	}
+	```
+	
 3. Finally, we need to tell composer where to place this privately sourced plugin folder.  Modify this projects composer.json within the post-install-cmd array to include a command for **moving** your private plugin content to the wp-content plugins folder.  The command will look similar to this:
 
-   ```"mv lib/my-personal-plugin-folder htdocs/wp-content/plugins"```    
+   ```
+   "mv lib/my-personal-plugin-folder htdocs/wp-content/plugins"
+   ```    
 
 ## My WordPress site received an "Error establishing a database connection" message.
 You probably have too many concurrent users who are trying to access your website. 
@@ -149,6 +170,18 @@ connections and more storage space.
 Unfortunately, paid tiers for ClearDB are not 
 offered in Bluemix currently. Contact ClearDB support for options on upgrading your 
 plan. You can also try [activating the WP Super Cache Plugin](#activate-the-wp-super-cache-plugin).
+
+## How can I bind an alternate mysql:// DB service url to my WordPress instance?
+Bluemix supports the concept of a User-Provided Service [CUPS](https://docs.cloudfoundry.org/devguide/services/user-provided.html).  Using the compose.io website you could consider creating a Compose MySQL ($$) paid instance that embodies high availability and failover.  The credentials connection string url should be available via the compose.io website UI.  After identifying the **mysql://** url ...
+
+Create a MySQL User-Provided Service via this command:
+
+```
+cf cups myClearDB -p '{"uri":"mysql://USER:PASSWORD@COMPOSE_REGION:PORT/compose"}'
+```
+
+During application deployment, the environment variable parsing routines within the [wp-bluemix-config repository](https://github.com/ibmjstart/wp-bluemix-config/blob/master/wp-config.php) will detect the user-provided service instance and populate the configuration accordingly.
+
 
 ## My site is loading slowly. Can I speed it up?
 Bluemix provides built-in support for scaling your apps. If the slowdown is load-related, 
