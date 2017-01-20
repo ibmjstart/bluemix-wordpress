@@ -11,12 +11,13 @@ WordPress on Bluemix uses the [Composer package manager](https://getcomposer.org
 and configures the installation to use ClearDB (MySQL) for data and IBM Object Storage 
 for media.
 
-[![Deploy to Bluemix](https://hub.jazz.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/jstart/WordPress.on.Bluemix)
+[![Deploy to Bluemix](https://hub.jazz.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
+[![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
 
 Note: Only one instance of the Object Storage Free plan is allowed per organization. If your target org already has one, please either
   * Rename your Object Storage instance to "myObjectStorage" and deploy your application to the same space as this service instance; or
   * Fork this project and, in manifest.yml under services, change all instances of "myObjectStoage" to match the name of your service instance; or
-  * Upgrade either your existing Object Storage service or edit manifest.yml to use the `Standard` plan
+  * Upgrade either your existing Object Storage service or edit manifest.yml to use the `standard` plan
 
 ---
 # Configure Your Site
