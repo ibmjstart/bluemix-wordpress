@@ -160,8 +160,12 @@ Private and premium Wordpress plugins can be challenging to incorporate in this 
    "mv lib/my-personal-plugin-folder htdocs/wp-content/plugins"
    ```    
 
-## My WordPress site received an "Error establishing a database connection" message.
-You probably have too many concurrent users who are trying to access your website. 
+## My WordPress site received an "Error establishing a database connection" or "Service Unavailable" message.
+
+>![503 Error](./service_unavailable_error.png)
+>**503 Service Unavailable**
+
+You probably have too many concurrent users who are trying to access your website OR the web installer has tried to establish too many concurrent connections to the MySQL service. 
 By default, WordPress on Bluemix uses the free tier of ClearDB's MySQL database as 
 a service that is suitable for trial usage. However, for real usage, consider 
 upgrading to one of their paid tiers that provide you with more simultaneous 
@@ -172,15 +176,39 @@ offered in Bluemix currently. Contact ClearDB support for options on upgrading y
 plan. You can also try [activating the WP Super Cache Plugin](#activate-the-wp-super-cache-plugin).
 
 ## How can I bind an alternate mysql:// DB service url to my WordPress instance?
-Bluemix supports the concept of a User-Provided Service [CUPS](https://docs.cloudfoundry.org/devguide/services/user-provided.html).  Using the compose.io website you could consider creating a Compose MySQL ($$) paid instance that embodies high availability and failover.  The credentials connection string url should be available via the compose.io website UI.  After identifying the **mysql://** url ...
+Bluemix supports the concept of a User-Provided Service [CUPS](https://docs.cloudfoundry.org/devguide/services/user-provided.html).  Using the compose.com website you could consider creating a Compose MySQL ($$) paid instance that embodies high availability and failover.  The credentials connection string url should be available via the [compose.com](https://www.compose.com/) website UI.  After identifying the **mysql://** url ...
 
 Create a MySQL User-Provided Service via this command:
 
 ```
-cf cups myClearDB -p '{"uri":"mysql://USER:PASSWORD@COMPOSE_REGION:PORT/compose"}'
+cf cups myCustomDB -p '{"uri":"mysql://USER:PASSWORD@COMPOSE_REGION:PORT/compose"}'
 ```
 
-During application deployment, the environment variable parsing routines within the [wp-bluemix-config repository](https://github.com/ibmjstart/wp-bluemix-config/blob/master/wp-config.php) will detect the user-provided service instance and populate the configuration accordingly.
+>You will need to update the manifest.yml within your project's git repository to reflect this new service instance name **AND** bind this new user-provided service to your application while unbinding the less scaleable ClearDB instance within the Bluemix platform.  To illustrate: 
+>
+>**BEFORE** [manifest.yml]
+>
+>```
+>[...]
+>services:
+>- myObjectStorage
+>- myClearDB
+>```
+>**AFTER** [manifest.yml]
+>
+>```
+>[...]
+>services:
+>- myObjectStorage
+>- myCustomDB
+>```
+>```
+>cf unbind-service appname myClearDB
+>cf bind-service appname myCustomDB
+>```
+
+During application deployment, the environment variable parsing routines within the [wp-bluemix-config repository](https://github.com/ibmjstart/wp-bluemix-config/blob/301a194a37b0cf0390f35dea8d91ab89a00dfebc/wp-config.php#L36-L50) will detect the user-provided service instance and populate the configuration accordingly during app restaging.
+>Remember: Association to a new empty DB will trigger the WordPress web installation sequence.
 
 
 ## My site is loading slowly. Can I speed it up?
