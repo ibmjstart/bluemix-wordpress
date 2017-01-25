@@ -86,11 +86,11 @@ stages:
         export CF_REGION=AU
       fi
       # Create CF services
-      echo -e "${tools}${Cyan}  Creating ClearDB Service Instance${no_color}"
+      echo -e "${tools}${Cyan}  Creating Compose MySQL Service Instance${no_color}"
       t=0
       until [ $t -ge 5 ]
       do
-        cf create-service cleardb spark myClearDB > /dev/null 2>&1 && break
+        cf create-service compose-for-mysql Standard myComposeMySQL > /dev/null 2>&1 && break
         t=$[$t+1]
         sleep 15
       done

@@ -3,9 +3,9 @@ declared-services:
   myObjectStorage:
     label: Object-Storage
     plan: Free
-  myClearDB:
-    label: cleardb
-    plan: spark
+  myComposeMySQL:
+    label: compose-for-mysql
+    plan: Standard
     
 applications:
 - name: WordPressForBluemix
@@ -15,4 +15,4 @@ applications:
   random-route: true
   services:
   - myObjectStorage
-  - myClearDB
+  - myComposeMySQL

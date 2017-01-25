@@ -8,26 +8,13 @@ your exact needs.
 
 WordPress on Bluemix uses the [Composer package manager](https://getcomposer.org) to install the 
 [wordpress package from johnpbloch](https://packagist.org/packages/johnpbloch/wordpress) 
-and configures the installation to use ClearDB (MySQL) for data and IBM Object Storage 
+and configures the installation to use Compose (MySQL) for data and IBM Object Storage 
 for media.
 
 [![Deploy to Bluemix](https://hub.jazz.net/deploy/button_x2.png)](https://bluemix.net/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
 [![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
 
-> ATTENTION: Only one instance of the Object Storage Free plan is allowed per organization. 
-
-If your target org already has a Free Object Storage Service instance, please consider:
-
-  * Rename your Object Storage instance to "myObjectStorage" and deploy your application to the same space as this service instance; or
-  * Fork this project and, in manifest.yml under services, change all instances of "myObjectStoage" to match the name of your service instance; or
-  * Upgrade either your existing Object Storage service or edit manifest.yml to use the `standard` plan
-
-> ATTENTION:  The ClearDB spark plan is resource constrained to a small amount of simultaneous connections.
-
-If your goal is to achieve a scaleable high-performing Wordpress deployment, consider either:
-
-  * Upgrading your ClearDB service instance plan to a paid plan with more available resources (e.g. increased network connections and storage size).
-  * Instantiating an alternative MySQL service via [compose.io](https://compose.io)
+> ATTENTION: Since only one instance of the Object Storage Free plan is allowed per organization, this repository defaults to use of the standard plan
 
 ---
 # Configure Your Site
@@ -223,7 +210,7 @@ Private and premium Wordpress plugins can be challenging to incorporate in this 
 	}
 	```
 	
-3. Finally, we need to tell composer where to place this privately sourced plugin folder.  Modify this projects composer.json within the post-install-cmd array to include a command for **moving** your private plugin content to the wp-content plugins folder.  The command will look similar to this:
+3. Finally, we need to tell composer where to place this privately sourced plugin folder.  Modify this projects composer.json within the **post-install-cmd** and **post-update-cmd** arrays to include a command for **moving** your private plugin content to the wp-content plugins folder.  The command will look similar to this:
 
    ```
    "mv lib/my-personal-plugin-folder htdocs/wp-content/plugins"
@@ -235,25 +222,23 @@ Private and premium Wordpress plugins can be challenging to incorporate in this 
 >**503 Service Unavailable**
 
 You probably have too many concurrent users who are trying to access your website OR the web installer has tried to establish too many concurrent connections to the MySQL service. 
-By default, WordPress on Bluemix uses the free tier of ClearDB's MySQL database as 
+By default, WordPress on Bluemix uses the Standard tier of Compose's MySQL database as 
 a service that is suitable for trial usage. However, for real usage, consider 
-upgrading to one of their paid tiers that provide you with more simultaneous 
+upgrading the resource allocations which provide you with more simultaneous 
 connections and more storage space.
 
-Unfortunately, paid tiers for ClearDB are not 
-offered in Bluemix currently. Contact ClearDB support for options on upgrading your 
-plan. You can also try [activating the WP Super Cache Plugin](#activate-the-wp-super-cache-plugin).
+You can also try [activating the WP Super Cache Plugin](#activate-the-wp-super-cache-plugin).
 
 ## How can I bind an alternate mysql:// DB service url to my WordPress instance?
-Bluemix supports the concept of a User-Provided Service [CUPS](https://docs.cloudfoundry.org/devguide/services/user-provided.html).  Using the compose.com website you could consider creating a Compose MySQL ($$) paid instance that embodies high availability and failover.  The credentials connection string url should be available via the [compose.com](https://www.compose.com/) website UI.  After identifying the **mysql://** url ...
+Bluemix supports the concept of a User-Provided Service [CUPS](https://docs.cloudfoundry.org/devguide/services/user-provided.html).  You will simply need to identify the **mysql://** url from your service provider's web ui ...
 
-Create a MySQL User-Provided Service via this command:
+Create a custom MySQL User-Provided Service via this command:
 
 ```
 cf cups myCustomDB -p '{"uri":"mysql://USER:PASSWORD@COMPOSE_REGION:PORT/compose"}'
 ```
 
->You will need to update the manifest.yml within your project's git repository to reflect this new service instance name **AND** bind this new user-provided service to your application while unbinding the less scaleable ClearDB instance within the Bluemix platform.  To illustrate: 
+>You will need to update the manifest.yml within your project's git repository to reflect this new service instance name **AND** bind this new user-provided service to your application while unbinding the default MySQL service instance provided by this repository.  To illustrate: 
 >
 >**BEFORE** [manifest.yml]
 >
@@ -261,7 +246,7 @@ cf cups myCustomDB -p '{"uri":"mysql://USER:PASSWORD@COMPOSE_REGION:PORT/compose
 >[...]
 >services:
 >- myObjectStorage
->- myClearDB
+>- myComposeMySQL
 >```
 >**AFTER** [manifest.yml]
 >
@@ -272,7 +257,7 @@ cf cups myCustomDB -p '{"uri":"mysql://USER:PASSWORD@COMPOSE_REGION:PORT/compose
 >- myCustomDB
 >```
 >```
->cf unbind-service appname myClearDB
+>cf unbind-service appname myComposeMySQL
 >cf bind-service appname myCustomDB
 >```
 
