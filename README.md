@@ -113,6 +113,62 @@ to make your changes work.
 
 Note: the SendGrid and WP Super Cache plugins must be manually enabled
 
+## How can I persist my wp-config.php changes?
+>One of the most important files in your WordPress installation is the wp-config.php file. This file is located in the root of your WordPress file directory and contains your website's base configuration details, such as database connection information.
+
+This repository's composer.json **requires** a [github repository](https://github.com/ibmjstart/wp-bluemix-config) which provides a specially crafted **default** [wp-config.php](https://github.com/ibmjstart/wp-bluemix-config/blob/301a194a37b0cf0390f35dea8d91ab89a00dfebc/wp-config.php).  After deployment, you may choose to perform additional administrative actions (e.g.  Activating/enabling WP Super Cache, etc ...) which **can** potentially modify the Bluemix application's wp-config.php.  Given the ephemeral nature of Cloud Foundry container file systems, you must capture and persist this in-use wp-config.php within the repository or risk losing your admin actions entirely upon application restart/update.  
+
+To persist requires a 3 step process ...
+
+####Step 1  
+
+```
+# Clone your deployment repo and make it the current working directory
+$ git clone your_open_toolchain_github_repo_or_hub_jazz_net_repo
+$ cd your_git_repo
+```
+####Step 2
+```
+# Fetch the current wp-config.php file and save it to the lib folder
+$ cf ssh appName -c "cat ~/app/htdocs/wp-config.php" > ./lib/wp-config.php
+```
+
+####Step 3  
+
+```
+# Modify composer.json commands to move your persisted file into the expected location,
+# rather than the default one.
+
+"post-xxxxxx-cmd" : [
+            [...]
+            "mv lib/wp-config.php htdocs",
+            [...]
+        ]
+```
+Both the **post-update-cmd** and **post-install-cmd** sections should be updated to look like this:
+
+```
+"post-xxxxxx-cmd" : [
+            "mv vendor/ibmjstart/wp-bluemix-config/mu-plugins htdocs/wp-content/mu-plugins",
+            "mv vendor/ibmjstart/wp-bluemix-config/.user.ini htdocs",
+            "mv lib/wp-config.php htdocs",
+            "mv vendor htdocs/vendor",
+            "mv lib/.htaccess htdocs"
+        ]
+```
+
+Finally, commit your changes to your git repo.  The continuous delivery pipeline will trigger and redeploy your Wordpress application -- with a persisted wp-config.php.
+
+####Subsequent Admin Actions  
+
+>Any number of subsequent Wordpress admin changes can be recaptured by executing **Step 2** again ...<br/>
+>and committing your changes to the git repository.
+
+```
+$ cf ssh appName -c "cat ~/app/htdocs/wp-config.php" > ./lib/wp-config.php
+```
+
+
 ## What is IBM Object Storage?
 IBM Object Storage is a service that exposes OpenStack Swift APIs for storing "objects" like files.
 
