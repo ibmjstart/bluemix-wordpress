@@ -12,7 +12,6 @@ and configures the installation to use Compose (MySQL) for data and IBM Object S
 for media.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button_x2.png)](https://bluemix.net/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
-[![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy?repository=https://github.com/ibmjstart/bluemix-wordpress)
 
 > ATTENTION: Since only one instance of the Object Storage Free plan is allowed per organization, this repository defaults to use of the standard plan
 
